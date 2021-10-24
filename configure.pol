@@ -51,19 +51,21 @@
 
 # question3
 10,Allow,-,-,-,10.0.0.0/24,1,-,-, allow world to ping hq 
-10,Block,-,-,-,10.0.1.0/24,-,-,-, block any host to US
-10,Block,-,-,-,10.0.20.0/24,-,-,-, block any host to IN
-10,Block,-,-,-,10.0.30.0/24,-,-,-, block any host to CN
-10,Block,-,-,-,10.0.40.0/24,-,-,-, block any host to UK
+10,Block,-,-,-,10.0.1.0/24,1,-,-, block any host to US
+10,Block,-,-,-,10.0.20.0/24,1,-,-, block any host to IN
+10,Block,-,-,-,10.0.30.0/24,1,-,-, block any host to CN
+10,Block,-,-,-,10.0.40.0/24,1,-,-, block any host to UK
 10,Allow,-,-,10.0.0.0/24,10.0.1.0/24,1,-,-, allow hq to ping US
 10,Allow,-,-,10.0.0.0/24,10.0.20.0/24,1,-,-, allow hq to ping IN
 10,Allow,-,-,10.0.0.0/24,10.0.30.0/24,1,-,-, allow hq to ping CN
 10,Allow,-,-,10.0.0.0/24,10.0.40.0/24,1,-,-, allow hq to ping UK
-#
-#8,Allow,-,-,10.0.40.0/24,10.0.0.2/32,17,-,853, Allow UK to access hq2 with 853
-#14,Allow,-,-,10.0.1.2/32,10.0.0.2/32,6,-,64000,Allow US to access hq2. port 80
-#14,Allow,-,-,10.0.20.0/24,10.0.0.2/32,6,-,64000,Allow IN to access hq2. port 80
-#15,Allow,-,-,10.0.40.1/32,10.0.0.2/32,6,-,64000,Allow CN to access hq2. port 80
-#16,Allow,-,-,10.0.40.1/32,10.0.0.2/32,6,-,64000,Allow UK to access hq2. port 80
+# qustion4
+11,Allow,-,-,10.0.1.0/24,10.0.0.0/24,6,-,3389, allow us to ping hq
+11,Allow,-,-,10.0.20.0/24,10.0.1.0/24,6,-,3389, al
+11,Allow,-,-,10.0.30.0/24,10.0.1.0/24,6,-,3389, al
+11,Allow,-,-,10.0.40.0/24,10.0.1.0/24,6,-,3389, al
+11,Allow,-,-,10.0.1.0/24,10.0.0.0/24,6,-,5900, allow us to ping hq
+11,Allow,-,-,10.0.20.0/24,10.0.1.0/24,6,-,5900, al
+11,Allow,-,-,10.0.30.0/24,10.0.1.0/24,6,-,5900, al
+11,Allow,-,-,10.0.40.0/24,10.0.1.0/24,6,-,5900, al
 
-#14,Block,-,-,10.0.0.1/32,10.0.1.0/24,6,-,80,Block 10.0.0.1 from accessing a web server on the 10.0.1.0/24 network
