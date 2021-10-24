@@ -50,10 +50,8 @@ def firewall_policy_processing(policies):
         rule = None # Please note that you need to redefine this variable below to create a valid POX Flow Modification Object
         print("this is a test")
         rule = of.ofp_flow_mod()
-        import pdb
-        #pdb.set_trace()
         if policy['action'] == "Allow":
-            rule.priority = 2
+            rule.priority = 3000
             action_port = of.OFPP_NORMAL
         else:
             rule.priority = 1
@@ -83,9 +81,9 @@ def firewall_policy_processing(policies):
         print('Added Rule ',policy['rulenum'],': ',policy['comment'])
         #print(rule)   #Uncomment this to debug your "rule"
         rules.append(rule)
-    from pprint import pprint
-    for rule in rules:
-        pprint(vars(rule))
-        pprint(vars(rule.match))
+    #from pprint import pprint
+    #for rule in rules:
+    #    pprint(vars(rule))
+    #    pprint(vars(rule.match))
     #pdb.set_trace()
     return rules
