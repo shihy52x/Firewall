@@ -50,7 +50,15 @@
 8,Allow,-,-,10.0.40.0/24,10.0.0.60/32,6,-,1194, Allow UK
 
 # question3
-#
+10,Allow,-,-,-,10.0.0.0/24,1,-,-, allow world to ping hq 
+10,Block,-,-,-,10.0.1.0/24,-,-,-, block any host to US
+10,Block,-,-,-,10.0.20.0/24,-,-,-, block any host to IN
+10,Block,-,-,-,10.0.30.0/24,-,-,-, block any host to CN
+10,Block,-,-,-,10.0.40.0/24,-,-,-, block any host to UK
+10,Allow,-,-,10.0.0.0/24,10.0.1.0/24,1,-,-, allow hq to ping US
+10,Allow,-,-,10.0.0.0/24,10.0.20.0/24,1,-,-, allow hq to ping IN
+10,Allow,-,-,10.0.0.0/24,10.0.30.0/24,1,-,-, allow hq to ping CN
+10,Allow,-,-,10.0.0.0/24,10.0.40.0/24,1,-,-, allow hq to ping UK
 #
 #8,Allow,-,-,10.0.40.0/24,10.0.0.2/32,17,-,853, Allow UK to access hq2 with 853
 #14,Allow,-,-,10.0.1.2/32,10.0.0.2/32,6,-,64000,Allow US to access hq2. port 80
