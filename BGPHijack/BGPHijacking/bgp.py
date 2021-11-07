@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 # Copyright 2021
 # Georgia Tech
 # All rights reserved
