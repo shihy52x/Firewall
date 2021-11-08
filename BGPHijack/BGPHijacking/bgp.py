@@ -134,6 +134,9 @@ def main():
     os.system("pkill -9 zebra > /dev/null 2>&1")
     os.system('pkill -9 -f webserver.py')
 
+    import pdb
+    pdb.set_trace()
+    pdb.set_trace()
     net = Mininet(topo=SimpleTopo(), switch=Router)
     net.start()
     for router in net.switches:
