@@ -31,7 +31,7 @@ parser.add_argument('--sleep', default=3, type=int)
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
-ROGUE_AS_NAME = 'R4'
+ROGUE_AS_NAME = 'R6'
 
 def log(s, col="green"):
     print(T.colored(s, col))
@@ -72,7 +72,7 @@ class SimpleTopo(Topo):
         # Add default members to class.
         super(SimpleTopo, self ).__init__()
         num_hosts_per_as = 2
-        num_ases = 3
+        num_ases = 5
         num_hosts = num_hosts_per_as * num_ases
         # The topology has one router per AS
         routers = []
@@ -88,25 +88,30 @@ class SimpleTopo(Topo):
                 hosts.append(host)
                 self.addLink(router, host)
 
-        for i in range(num_ases-1):
-            self.addLink('R%d' % (i+1), 'R%d' % (i+2))
-
-        routers.append(self.addSwitch('R4'))
+        self.addLink('R1', 'R2')
+        self.addLink('R1', 'R3')
+        self.addLink('R2', 'R3')
+        self.addLink('R2', 'R4')
+        self.addLink('R2', 'R5')
+        self.addLink('R3', 'R4')
+        self.addLink('R3', 'R5')
+        self.addLink('R4', 'R5')
+        routers.append(self.addSwitch('R6'))
         for j in range(num_hosts_per_as):
-            hostname = 'h%d-%d' % (4, j+1)
+            hostname = 'h%d-%d' % (6, j+1)
             host = self.addNode(hostname)
             hosts.append(host)
-            self.addLink('R4', hostname)
+            self.addLink('R6', hostname)
         # This MUST be added at the end
-        self.addLink('R1', 'R4')
+        self.addLink('R6', 'R5')
         return
 
 
 def getIP(hostname):
     AS, idx = hostname.replace('h', '').split('-')
     AS = int(AS)
-    if AS == 4:
-        AS = 3
+    if AS == 6:
+        AS = 1
     ip = '%s.0.%s.1/24' % (10+AS, idx)
     return ip
 
@@ -116,8 +121,8 @@ def getGateway(hostname):
     AS = int(AS)
     # This condition gives AS4 the same IP range as AS3 so it can be an
     # attacker.
-    if AS == 4:
-        AS = 3
+    if AS == 6:
+        AS = 1
     gw = '%s.0.%s.254' % (10+AS, idx)
     return gw
 
@@ -163,8 +168,8 @@ def main():
         host.cmd("route add default gw %s" % (getGateway(host.name)))
 
     log("Starting web servers", 'yellow')
-    startWebserver(net, 'h3-1', "Default web server 2.1.1")
-    startWebserver(net, 'h4-1', "*** Attacker web server 2.1.1***")
+    startWebserver(net, 'h1-1', "Default web server 2.1.1")
+    startWebserver(net, 'h6-1', "*** Attacker web server 2.1.1***")
 
     CLI(net, script=args.scriptfile)
     net.stop()
