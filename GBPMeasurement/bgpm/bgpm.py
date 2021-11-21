@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 
 from collections import defaultdict
+import time
+import glob, os
 
 import pybgpstream
+from pybgpstream import BGPStream, BGPRecord, BGPElem
+import matplotlib.pyplot as plt
+import collections
 
 """Code file for CS 6250 BGPM Project
 
@@ -24,8 +29,18 @@ def calculateUniqueIPAddresses(cache_files):
         A list containing the number of unique IP prefixes for each input cache file.
           For example: [2, 5]
     """
-
-    return []
+    y = []
+    cache_files = sorted(cache_files)
+    for file in cache_files:
+        stream = BGPStream(data_interface="singlefile")
+        stream.set_data_interface_option("singlefile", "rib-file", file)
+        records = set()
+        i = 0
+        for elem in stream:
+            i += 1
+            records.add(elem._maybe_field("prefix"))
+        y.append(len(records))
+    return  y
 
 
 # Task 1 Part B.
@@ -41,8 +56,19 @@ def calculateUniqueAses(cache_files):
         A list containing the number of the number of unique AS for each input file.
           For example: [2, 5]
     """
+    y = []
+    cache_files = sorted(cache_files)
+    for file in cache_files:
+        stream = BGPStream(data_interface="singlefile")
+        stream.set_data_interface_option("singlefile", "rib-file", file)
+        records = set()
+        i = 0
+        for elem in stream:
+            i += 1
+            records.add(elem.peer_asn)
+        y.append(len(records))
+    return y
 
-    return []
 
 
 # Task 1 Part C.
@@ -57,8 +83,38 @@ def examinePrefixes(cache_files):
         A list of the top 10 origin ASes according to percentage increase of the advertised prefixes.
         See assignment description for details.
     """
+    y = []
+    x = []
+    cache_files = sorted(cache_files)
+    first_file = cache_files[0]
+    last_file = cache_files[-1]
+    dict_first = calAseDict(first_file)
+    dict_last = calAseDict(last_file)
+    dict_percentage = dict()
+    for key in dict_first:
+        if key in dict_last:
+            a = len(dict_first[key])
+            b = len(dict_last[key])
+            dict_percentage[key] = float(b)/float(a)
 
-    return []
+    dict_sort =  {k:v for k, v in sorted(dict_percentage.items(), key=lambda item: -item[1])}
+    return [i for i in dict_sort.keys()]
+
+def calAseDict(file):
+    stream = BGPStream(data_interface="singlefile")
+    stream.set_data_interface_option("singlefile", "rib-file", file)
+    records = dict()
+    i = 0
+    for elem in stream:
+        i += 1
+        asn = elem.peer_asn
+        prefix = elem._maybe_field("prefix")
+        if asn in records:
+            records[asn].add(prefix)
+        else:
+            records[asn] = set()
+            records[asn].add(prefix)
+    return records
 
 
 # Task 2 Part A.
@@ -129,3 +185,29 @@ def calculateAWDurations(cache_files):
     """
 
     return {}
+
+
+cache_file = "/home/mininet/Projects/git/bgpmeasurement/bgpm/rib_files/ris.rrc06.ribs.1357027200.120.cache"
+cache_file_path = "/home/mininet/Projects/git/bgpmeasurement/bgpm/rib_files"
+
+files = []
+for file in os.listdir(cache_file_path):
+    files.append(os.path.join(cache_file_path, file))
+files = sorted(files)
+print(files)
+
+x = []
+for file in files:
+    time_string = file.split('.')[3]
+    x.append(time.gmtime(int(time_string)).tm_year)
+#y = calculateUniqueIPAddresses(files)
+#plt.plot(x, y)
+#plt.savefig(fname = "uniq_ip.png")
+
+#y = calculateUniqueAses(files)
+#plt.plot(x, y)
+#plt.savefig(fname = "uniq_ase.png")
+
+examinePrefixes(files)
+
+
