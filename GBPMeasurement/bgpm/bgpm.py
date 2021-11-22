@@ -163,6 +163,8 @@ def calculateShortestPath(cache_files):
 
     for key in all_keys:
         for res_local in res_global:
+            if key not in res_local:
+                continue
             if key not in res:
                 res[key] = res_local[key]
             else:
