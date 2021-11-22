@@ -152,13 +152,11 @@ def calculateShortestPath(cache_files):
             else:
                 res_local[origin_as] = min(res_local[origin_as], path_length)
         res_global.append(res_local)
-    import pdb
     all_keys = set()
     for res_local in res_global:
         for key in res_local.keys():
             all_keys.add(key)
     res = dict()
-    pdb.set_trace()
 
     for key in all_keys:
         for res_local in res_global:
@@ -241,5 +239,13 @@ for file in files:
 
 #examinePrefixes(files)
 import pdb
+
 res = calculateShortestPath(files)
+snapshots = [{i:0 for i in range(len(x))}] * len(x)
 pdb.set_trace()
+for key, val in res.items():
+    for i in range(len(x)):
+        snapshots[i][val[i]] += 1
+
+
+
