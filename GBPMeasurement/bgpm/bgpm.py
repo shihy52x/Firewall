@@ -309,4 +309,5 @@ import pdb
 #     x.append(time.gmtime(int(time_string)).tm_year)
 # calculateRTBHDurations(files)
 
-examinePrefixes
+res = examinePrefixes(files)
+print(res)
