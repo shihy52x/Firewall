@@ -242,4 +242,4 @@ for file in files:
 #examinePrefixes(files)
 import pdb
 res = calculateShortestPath(files)
-pdb.set_trace
+pdb.set_trace()
