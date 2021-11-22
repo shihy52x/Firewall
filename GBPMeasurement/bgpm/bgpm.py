@@ -190,7 +190,8 @@ def calculateRTBHDurations(cache_files):
             For example: {"455": {"123": [4, 1, 3]}}
             The above example corresponds to the peerIP "455", the prefix "123" and event durations of 4, 1 and 3.
     """
-
+    stream = BGPStream(data_interface="singlefile")
+    stream.set_data_interface_option("singlefile", "upd-file", filepath)
     return {}
 
 
@@ -240,39 +241,52 @@ for file in files:
 #examinePrefixes(files)
 import pdb
 
-res = calculateShortestPath(files)
-snapshots =[]
-for i in range(len(x)):
-    snapshots.append(dict())
+# res = calculateShortestPath(files)
+# snapshots =[]
+# for i in range(len(x)):
+#     snapshots.append(dict())
+#
+# for key, val in res.items():
+#     for i in range(len(x)):
+#         if val[i] in snapshots[i]:
+#             snapshots[i][val[i]] += 1
+#         else:
+#             snapshots[i][val[i]] = 1
+#
+#
+# f, axs = plt.subplots(2,2,figsize=(8,16))
+# n = len(x)
+# for i in range(n):
+#     snapshot = snapshots[i]
+#     x_cul = []
+#     y_cul = []
+#     cul_sum = 0
+#     for key in sorted(snapshot.keys()):
+#         if key != 0:
+#             val = snapshot[key]
+#             x_cul.append(key)
+#             cul_sum += val
+#             y_cul.append(cul_sum)
+#
+#     y_cul = [float(k)/float(cul_sum) for k in y_cul]
+#     ax = plt.subplot(len(x), 1, i + 1)
+#     ax.set_title(str(x[i]))
+#     ax.plot(x_cul, y_cul)
+# plt.savefig("ecdf.png")
 
-for key, val in res.items():
-    for i in range(len(x)):
-        if val[i] in snapshots[i]:
-            snapshots[i][val[i]] += 1
-        else:
-            snapshots[i][val[i]] = 1
+cache_file_path = "/home/mininet/Projects/git/bgpmeasurement/bgpm/update_files_blackholing"
 
+files = []
+for file in os.listdir(cache_file_path):
+    files.append(os.path.join(cache_file_path, file))
+files = sorted(files)
+print(files)
 
-f, axs = plt.subplots(2,2,figsize=(8,16))
-n = len(x)
-for i in range(n):
-    snapshot = snapshots[i]
-    x_cul = []
-    y_cul = []
-    cul_sum = 0
-    for key in sorted(snapshot.keys()):
-        if key != 0:
-            val = snapshot[key]
-            x_cul.append(key)
-            cul_sum += val
-            y_cul.append(cul_sum)
-
-    y_cul = [float(k)/float(cul_sum) for k in y_cul]
-    ax = plt.subplot(len(x), 1, i + 1)
-    ax.set_title(str(x[i]))
-    ax.plot(x_cul, y_cul)
-plt.savefig("ecdf.png")
-
-
+x = []
+import pdb
+pdb.set_trace()
+for file in files:
+    time_string = file.split('.')[3]
+    x.append(time.gmtime(int(time_string)).tm_year)
 
 
