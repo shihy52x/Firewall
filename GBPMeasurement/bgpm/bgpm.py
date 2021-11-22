@@ -140,8 +140,8 @@ def calculateShortestPath(cache_files):
         i = 0
         for elem in stream:
             i += 1
-            if i > 10000:
-                break
+            #if i > 10000:
+                #break
             path_string = elem._maybe_field("as-path")
             as_list = path_string.split(" ")
             as_set = set(as_list)
