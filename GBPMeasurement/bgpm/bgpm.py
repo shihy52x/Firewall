@@ -202,7 +202,7 @@ def calculateRTBHDurations(cache_files):
             #if i > 10000:
             #break
             import pdb
-            if elem.type = "W":
+            if elem.type == "W":
                 print(elem)
                 print(elem.type)
                 print(elem.fields, elem.fields['communities'], elem.fields['prefix'], elem.peer_address)
