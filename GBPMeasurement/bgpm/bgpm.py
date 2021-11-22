@@ -131,7 +131,6 @@ def calculateShortestPath(cache_files):
           For example: {"455": [4, 0, 3], "533": [0, 1, 2]}
           corresponds to the AS "455" with shortest path lengths 4, 0 and 3 and the AS "533" with shortest paths 0, 1 and 2.
     """
-    y = []
     cache_files = sorted(cache_files)
     res_global = []
     for file in cache_files:
@@ -164,14 +163,15 @@ def calculateShortestPath(cache_files):
     for key in all_keys:
         for res_local in res_global:
             if key not in res_local:
-                continue
-            if key not in res:
-                res[key] = [res_local[key]]
+                value = 0
             else:
-                res[key].append(res_local[key])
-    pdb.set_trace()
+                value = res_local[key]
 
-    return {}
+            if key not in res:
+                res[key] = [value]
+            else:
+                res[key].append(value)
+    return res
 
 
 # Task 3 Part A.
@@ -240,6 +240,5 @@ for file in files:
 #plt.savefig(fname = "uniq_ase.png")
 
 #examinePrefixes(files)
-calculateShortestPath(files)
-
+res = calculateShortestPath(files)
 
