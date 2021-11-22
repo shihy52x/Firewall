@@ -204,7 +204,7 @@ x = []
 for file in files:
     time_string = file.split('.')[3]
     x.append(time.gmtime(int(time_string)).tm_year)
-y = calculateUniqueIPAddresses(files)
+#y = calculateUniqueIPAddresses(files)
 #plt.plot(x, y)
 #plt.savefig(fname = "uniq_ip.png")
 
