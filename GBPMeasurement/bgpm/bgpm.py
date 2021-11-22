@@ -269,8 +269,9 @@ for i in range(n):
 
     y_cul = [float(k)/float(cul_sum) for k in y_cul]
     ax = plt.subplot(len(x), 1, i)
-    ax.set_title(x[i])
+    ax.set_title(str(x[i]))
     ax.plot(x_cul, y_cul)
+    pdb.set_trace()
 plt.show()
 pdb.set_trace()
 
