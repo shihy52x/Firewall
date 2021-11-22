@@ -154,18 +154,20 @@ def calculateShortestPath(cache_files):
                 res_local[origin_as] = min(res_local[origin_as], path_length)
         res_global.append(res_local)
     import pdb
-    pdb.set_trace()
     all_keys = set()
     for res_local in res_global:
-        keys = [key for key in res_local.keys()]
-        all_keys.add(keys)
+        for key in res_local.keys():
+            all_keys.add(key)
     res = dict()
+    pdb.set_trace()
+
     for key in all_keys:
         for res_local in res_global:
             if key not in res:
                 res[key] = res_local[key]
             else:
                 res[key].append(res_local[key])
+    pdb.set_trace()
 
     return {}
 
