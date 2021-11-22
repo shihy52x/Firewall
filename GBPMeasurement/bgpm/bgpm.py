@@ -35,7 +35,6 @@ def calculateUniqueIPAddresses(cache_files):
         stream = BGPStream(data_interface="singlefile")
         stream.set_data_interface_option("singlefile", "rib-file", file)
         records = set()
-        import pdb
         for elem in stream:
             records.add(elem._maybe_field("prefix"))
         y.append(len(records))
@@ -134,15 +133,35 @@ def calculateShortestPath(cache_files):
     """
     y = []
     cache_files = sorted(cache_files)
+    res_global = []
     for file in cache_files:
         stream = BGPStream(data_interface="singlefile")
         stream.set_data_interface_option("singlefile", "rib-file", file)
-        records = set()
+        res_local = dict()
         for elem in stream:
-            records.add(elem._maybe_field("as-path"))
+            path_string = elem._maybe_field("as-path")
+            as_list = path_string.split(" ")
+            as_set = set(as_list)
+            path_length = len(as_set)
+            origin_as = as_list[-1]
+            if origin_as not in res_local:
+                res_local[origin_as] = path_length
+            else:
+                res_local[origin_as] = min(res_local[origin_as], path_length)
+        res_global.append(res_local)
         import pdb
         pdb.set_trace()
-        y.append(len(records))
+        all_keys = set()
+        for res_local in res_global:
+            keys = [key for key in res_local.keys()]
+            all_keys.add(keys)
+        res = dict()
+        for key in all_keys:
+            for res_local in res_global:
+                if key not in res:
+                    res[key] = res_local[key]
+                else:
+                    res[key].append(res_local[key])
 
     return {}
 
