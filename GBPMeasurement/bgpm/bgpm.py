@@ -35,8 +35,11 @@ def calculateUniqueIPAddresses(cache_files):
         stream = BGPStream(data_interface="singlefile")
         stream.set_data_interface_option("singlefile", "rib-file", file)
         records = set()
+        import pdb
         for elem in stream:
             records.add(elem._maybe_field("prefix"))
+            print(elem)
+            pdb.trace()
         y.append(len(records))
     return y
 
@@ -192,7 +195,7 @@ x = []
 for file in files:
     time_string = file.split('.')[3]
     x.append(time.gmtime(int(time_string)).tm_year)
-#y = calculateUniqueIPAddresses(files)
+y = calculateUniqueIPAddresses(files)
 #plt.plot(x, y)
 #plt.savefig(fname = "uniq_ip.png")
 
