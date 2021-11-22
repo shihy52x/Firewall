@@ -203,6 +203,7 @@ def calculateRTBHDurations(cache_files):
             #break
             import pdb
             print(elem)
+            print(elem.fields)
             path_string = elem._maybe_field("as-path")
             as_list = path_string.split(" ")
             as_set = set(as_list)
