@@ -35,12 +35,10 @@ def calculateUniqueIPAddresses(cache_files):
         stream = BGPStream(data_interface="singlefile")
         stream.set_data_interface_option("singlefile", "rib-file", file)
         records = set()
-        i = 0
         for elem in stream:
-            i += 1
             records.add(elem._maybe_field("prefix"))
         y.append(len(records))
-    return  y
+    return y
 
 
 # Task 1 Part B.
@@ -62,9 +60,7 @@ def calculateUniqueAses(cache_files):
         stream = BGPStream(data_interface="singlefile")
         stream.set_data_interface_option("singlefile", "rib-file", file)
         records = set()
-        i = 0
         for elem in stream:
-            i += 1
             records.add(elem.peer_asn)
         y.append(len(records))
     return y
@@ -83,8 +79,6 @@ def examinePrefixes(cache_files):
         A list of the top 10 origin ASes according to percentage increase of the advertised prefixes.
         See assignment description for details.
     """
-    y = []
-    x = []
     cache_files = sorted(cache_files)
     first_file = cache_files[0]
     last_file = cache_files[-1]
@@ -104,9 +98,7 @@ def calAseDict(file):
     stream = BGPStream(data_interface="singlefile")
     stream.set_data_interface_option("singlefile", "rib-file", file)
     records = dict()
-    i = 0
     for elem in stream:
-        i += 1
         asn = elem.peer_asn
         prefix = elem._maybe_field("prefix")
         if asn in records:
