@@ -248,7 +248,16 @@ for i in range(len(x)):
 for key, val in res.items():
     for i in range(len(x)):
         snapshots[i][val[i]] += 1
+pdb.set_trace()
 
+for snapshot in snapshots:
+    vals = [snapshot[key] for key in range(1, len(x))]
+    sum = sum(vals)
+    cul = 0
+    cul_list = []
+    for i in range(len(vals)):
+        cul += vals[i]
+        cul_list.append(float(cul)/float(sum))
 pdb.set_trace()
 
 
