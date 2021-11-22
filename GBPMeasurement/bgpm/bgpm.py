@@ -252,8 +252,8 @@ for key, val in res.items():
         else:
             snapshots[i][val[i]] = 1
 
-pdb.set_trace()
 
+f, axs = plt.subplots(2,2,figsize=(8,16))
 n = len(x)
 for i in range(n):
     snapshot = snapshots[i]
@@ -271,9 +271,8 @@ for i in range(n):
     ax = plt.subplot(len(x), 1, i + 1)
     ax.set_title(str(x[i]))
     ax.plot(x_cul, y_cul)
-    pdb.set_trace()
-plt.show()
-pdb.set_trace()
+plt.savefig("ecdf.png")
+
 
 
 
