@@ -209,8 +209,8 @@ def calculateRTBHDurations(cache_files):
             # path_string = elem._maybe_field("as-path")
             # as_list = path_string.split(" ")
             # as_set = set(as_list)
-            path_length = len(as_set)
-            origin_as = as_list[-1]
+            # path_length = len(as_set)
+            # origin_as = as_list[-1]
     return {}
 
 
