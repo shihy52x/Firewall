@@ -190,8 +190,23 @@ def calculateRTBHDurations(cache_files):
             For example: {"455": {"123": [4, 1, 3]}}
             The above example corresponds to the peerIP "455", the prefix "123" and event durations of 4, 1 and 3.
     """
-    stream = BGPStream(data_interface="singlefile")
-    stream.set_data_interface_option("singlefile", "upd-file", filepath)
+    cache_files = sorted(cache_files)
+    for file in cache_files:
+        stream = BGPStream(data_interface="singlefile")
+        stream.set_data_interface_option("singlefile", "upd-file", file)
+        res_local = dict()
+        i = 0
+        for elem in stream:
+            i += 1
+            #if i > 10000:
+            #break
+            import pdb
+            pdb.set_trace()
+            path_string = elem._maybe_field("as-path")
+            as_list = path_string.split(" ")
+            as_set = set(as_list)
+            path_length = len(as_set)
+            origin_as = as_list[-1]
     return {}
 
 
@@ -289,5 +304,5 @@ for file in files:
     time_string = file.split('.')[3]
     print(time.gmtime(int(time_string)))
     x.append(time.gmtime(int(time_string)).tm_year)
-
+calculateRTBHDurations
 
