@@ -166,7 +166,7 @@ def calculateShortestPath(cache_files):
             if key not in res_local:
                 continue
             if key not in res:
-                res[key] = res_local[key]
+                res[key] = [res_local[key]]
             else:
                 res[key].append(res_local[key])
     pdb.set_trace()
