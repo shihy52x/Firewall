@@ -240,5 +240,6 @@ for file in files:
 #plt.savefig(fname = "uniq_ase.png")
 
 #examinePrefixes(files)
+import pdb
 res = calculateShortestPath(files)
-
+pdb.set_trace
