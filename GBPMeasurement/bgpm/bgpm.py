@@ -250,7 +250,8 @@ for key, val in res.items():
         snapshots[i][val[i]] += 1
 pdb.set_trace()
 
-for snapshot in snapshots:
+for i in range(x):
+    snapshot = snapshots[i]
     vals = [snapshot[key] for key in range(1, len(x))]
     sum = sum(vals)
     cul = 0
@@ -258,6 +259,9 @@ for snapshot in snapshots:
     for i in range(len(vals)):
         cul += vals[i]
         cul_list.append(float(cul)/float(sum))
+    ax = plt.subplot(len(x), 1, i)
+    ax.set_title(x[i])
+
 pdb.set_trace()
 
 
