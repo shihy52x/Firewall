@@ -138,7 +138,11 @@ def calculateShortestPath(cache_files):
         stream = BGPStream(data_interface="singlefile")
         stream.set_data_interface_option("singlefile", "rib-file", file)
         res_local = dict()
+        i = 0
         for elem in stream:
+            i += 1
+            if i > 10000:
+                break
             path_string = elem._maybe_field("as-path")
             as_list = path_string.split(" ")
             as_set = set(as_list)
