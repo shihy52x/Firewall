@@ -236,7 +236,6 @@ def calculateAWDurations(cache_files):
     return {}
 
 
-cache_file = "/home/mininet/Projects/git/bgpmeasurement/bgpm/rib_files/ris.rrc06.ribs.1357027200.120.cache"
 cache_file_path = "/home/mininet/Projects/git/bgpmeasurement/bgpm/rib_files"
 
 files = []
@@ -293,20 +292,21 @@ import pdb
 #     ax.plot(x_cul, y_cul)
 # plt.savefig("ecdf.png")
 
-cache_file_path = "/home/mininet/Projects/git/bgpmeasurement/bgpm/update_files_blackholing"
+# cache_file_path = "/home/mininet/Projects/git/bgpmeasurement/bgpm/update_files_blackholing"
+#
+# files = []
+# for file in os.listdir(cache_file_path):
+#     files.append(os.path.join(cache_file_path, file))
+# files = sorted(files)
+# print(files)
 
-files = []
-for file in os.listdir(cache_file_path):
-    files.append(os.path.join(cache_file_path, file))
-files = sorted(files)
-print(files)
+# x = []
+# import pdb
+# pdb.set_trace()
+# for file in files:
+#     time_string = file.split('.')[3]
+#     print(time.gmtime(int(time_string)))
+#     x.append(time.gmtime(int(time_string)).tm_year)
+# calculateRTBHDurations(files)
 
-x = []
-import pdb
-pdb.set_trace()
-for file in files:
-    time_string = file.split('.')[3]
-    print(time.gmtime(int(time_string)))
-    x.append(time.gmtime(int(time_string)).tm_year)
-calculateRTBHDurations(files)
-
+examinePrefixes
