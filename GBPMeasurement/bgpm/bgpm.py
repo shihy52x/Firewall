@@ -245,11 +245,11 @@ snapshots =[]
 for i in range(len(x)):
     dict = {i:0 for i in range(len(x))}
     snapshots.append(dict)
-pdb.set_trace()
 for key, val in res.items():
     for i in range(len(x)):
         snapshots[i][val[i]] += 1
 
+pdb.set_trace()
 
 
 
