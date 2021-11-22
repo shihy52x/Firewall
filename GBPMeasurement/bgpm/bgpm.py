@@ -304,5 +304,5 @@ for file in files:
     time_string = file.split('.')[3]
     print(time.gmtime(int(time_string)))
     x.append(time.gmtime(int(time_string)).tm_year)
-calculateRTBHDurations
+calculateRTBHDurations(files)
 
