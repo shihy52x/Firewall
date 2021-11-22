@@ -134,6 +134,17 @@ def calculateShortestPath(cache_files):
           For example: {"455": [4, 0, 3], "533": [0, 1, 2]}
           corresponds to the AS "455" with shortest path lengths 4, 0 and 3 and the AS "533" with shortest paths 0, 1 and 2.
     """
+    y = []
+    cache_files = sorted(cache_files)
+    for file in cache_files:
+        stream = BGPStream(data_interface="singlefile")
+        stream.set_data_interface_option("singlefile", "rib-file", file)
+        records = set()
+        for elem in stream:
+            records.add(elem._maybe_field("as-path"))
+        import pdb
+        pdb.set_trace()
+        y.append(len(records))
 
     return {}
 
@@ -203,6 +214,7 @@ y = calculateUniqueIPAddresses(files)
 #plt.plot(x, y)
 #plt.savefig(fname = "uniq_ase.png")
 
-examinePrefixes(files)
+#examinePrefixes(files)
+calculateShortestPath(files)
 
 
