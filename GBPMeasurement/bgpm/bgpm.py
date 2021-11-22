@@ -206,9 +206,9 @@ def calculateRTBHDurations(cache_files):
                 print(elem)
                 print(elem.type)
                 #print(elem.fields, elem.fields['communities'], elem.fields['prefix'], elem.peer_address)
-            path_string = elem._maybe_field("as-path")
-            as_list = path_string.split(" ")
-            as_set = set(as_list)
+            # path_string = elem._maybe_field("as-path")
+            # as_list = path_string.split(" ")
+            # as_set = set(as_list)
             path_length = len(as_set)
             origin_as = as_list[-1]
     return {}
