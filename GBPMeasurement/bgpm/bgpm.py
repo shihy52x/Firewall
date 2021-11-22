@@ -193,6 +193,7 @@ def calculateRTBHDurations(cache_files):
     cache_files = sorted(cache_files)
     for file in cache_files:
         stream = BGPStream(data_interface="singlefile")
+        stream.add_filter("ipversion", "4")
         stream.set_data_interface_option("singlefile", "upd-file", file)
         res_local = dict()
         i = 0
