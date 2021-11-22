@@ -39,7 +39,7 @@ def calculateUniqueIPAddresses(cache_files):
         for elem in stream:
             records.add(elem._maybe_field("prefix"))
             print(elem)
-            pdb.trace()
+            pdb.set_trace()
         y.append(len(records))
     return y
 
