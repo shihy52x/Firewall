@@ -241,7 +241,10 @@ for file in files:
 import pdb
 
 res = calculateShortestPath(files)
-snapshots = [{i:0 for i in range(len(x))}] * len(x)
+snapshots =[]
+for i in range(len(x)):
+    dict = {i:0 for i in range(len(x))}
+    snapshots.append(dict)
 pdb.set_trace()
 for key, val in res.items():
     for i in range(len(x)):
