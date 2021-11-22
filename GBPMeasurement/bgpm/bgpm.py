@@ -243,25 +243,35 @@ import pdb
 res = calculateShortestPath(files)
 snapshots =[]
 for i in range(len(x)):
-    dict = {i:0 for i in range(len(x))}
-    snapshots.append(dict)
+    snapshots.append(dict())
+
 for key, val in res.items():
     for i in range(len(x)):
-        snapshots[i][val[i]] += 1
+        if val[i] in snapshots[i]:
+            snapshots[i][val[i]] += 1
+        else:
+            snapshots[i][val[i]] = 1
+
 pdb.set_trace()
 
-for i in range(x):
+n = len(x)
+for i in range(n):
     snapshot = snapshots[i]
-    vals = [snapshot[key] for key in range(1, len(x))]
-    sum = sum(vals)
-    cul = 0
-    cul_list = []
-    for i in range(len(vals)):
-        cul += vals[i]
-        cul_list.append(float(cul)/float(sum))
+    x_cul = []
+    y_cul = []
+    cul_sum = 0
+    for key in sorted(snapshot.keys()):
+        if key != 0:
+            val = snapshot[key]
+            x_cul.append(key)
+            cul_sum += val
+            y_cul.append(cul_sum)
+
+    y_cul = [float(k)/float(cul_sum) for k in y_cul]
     ax = plt.subplot(len(x), 1, i)
     ax.set_title(x[i])
-
+    ax.plot(x_cul, y_cul)
+plt.show()
 pdb.set_trace()
 
 
